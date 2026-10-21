@@ -1,8 +1,20 @@
 import { defineConfig } from 'vitepress'
+import { katex } from '@mdit/plugin-katex'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+const config = withMermaid(defineConfig({
   title: 'Documentación',
   description: 'Documentación para almacenar',
+  vite: {
+    optimizeDeps: {
+      include: ['mermaid']
+    }
+  },
+  markdown: {
+    config: (md) => {
+      md.use(katex as never)
+    }
+  },
   themeConfig: {
     nav: [{ text: 'Inicio', link: '/' }],
     sidebar: [
@@ -17,7 +29,12 @@ export default defineConfig({
       },
       {
         text: 'Machine Learning',
-        items: [{ text: 'Introducción', link: '/git/introduccion' }]
+        items: [
+          { text: 'Introducción', link: '/machine/index' },
+          { text: 'Aprendizaje supervisado', link: '/machine/supervisado' },
+          { text: 'Aprendizaje no supervisado', link: '/machine/nosupervisado' },
+          { text: 'Redes Neuronales', link: '/machine/redes_neuronales' }
+        ],
       },
       {
         text: 'Git',
@@ -25,13 +42,28 @@ export default defineConfig({
       },
       {
         text: 'Wordpress',
-        items: [{ text: 'Introducción', link: '/git/introduccion' }]
+        items: [{ text: 'Introducción', link: '/wordpress/introduccion' }]
       },
       {
         text: 'SEO',
-        items: [{ text: 'Introducción', link: '/git/introduccion' }]
+        items: [{ text: 'Introducción', link: '/seo/introduccion' }]
       }
 
     ]
   }
-})
+}))
+
+const optimizeDeps = config.vite?.optimizeDeps
+if (optimizeDeps?.include) {
+  optimizeDeps.include = optimizeDeps.include.filter(
+    (dependency) =>
+      ![
+        '@braintree/sanitize-url',
+        'debug',
+        'cytoscape-cose-bilkent',
+        'cytoscape'
+      ].includes(dependency)
+  )
+}
+
+export default config
