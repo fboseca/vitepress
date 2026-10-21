@@ -38,15 +38,15 @@ const config = withMermaid(defineConfig({
       },
       {
         text: 'Git',
-        items: [{ text: 'Introducción', link: '/git/introduccion' }]
+        items: [{ text: 'Introducción', link: '/git/index' }]
       },
       {
         text: 'Wordpress',
-        items: [{ text: 'Introducción', link: '/wordpress/introduccion' }]
+        items: [{ text: 'Introducción', link: '/wordpress/index' }]
       },
       {
         text: 'SEO',
-        items: [{ text: 'Introducción', link: '/seo/introduccion' }]
+        items: [{ text: 'Introducción', link: '/seo/index' }]
       }
 
     ]
